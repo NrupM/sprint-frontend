@@ -12,3 +12,26 @@
 .App-intro {
 	font-size: large;
 }
+
+.search-form {
+	z-index: 1;
+	position: relative;
+	width: 100%;
+	height: 150px;
+	padding: 50px 0;
+}
+
+.search-form input {
+	width: 90%;
+	height: 50px;
+	padding: 15px 20px;
+	max-width: 500px;
+	border: none;
+	box-sizing: border-box;
+	size: 18px;
+	color: #222222;
+}
+
+.search-form input:focus {
+	outline: 0;
+}
