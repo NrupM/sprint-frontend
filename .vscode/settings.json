@@ -1,0 +1,56 @@
+// Place your settings in this file to overwrite default and user settings.
+// Place your settings in this file to overwrite the default settings
+{
+    "files.autoSave": "off",
+    "editor.trimAutoWhitespace": true,
+    "files.trimTrailingWhitespace": false,
+    "workbench.colorTheme": "Material Theme",
+    "workbench.iconTheme": "material-icon-theme",
+    "window.zoomLevel": -1,
+    "editor.renderWhitespace": "all",
+    "editor.renderControlCharacters": true,
+    "editor.minimap.enabled": true,
+    "javascript.validate.enable": false,
+    "typescript.validate.enable": false,
+    "editor.formatOnSave": false,
+    "flow.runOnAllFiles" : true,
+    "flow.runOnEdit": true,
+    "flow.showStatus": true,
+    "flow.useNPMPackagedFlow": true,
+    "flowide.useCodeSnippetsOnFunctionSuggest": true,
+    "flowide.enabled": true,
+    "flow.enabled": true,
+    "flow.stopFlowOnExit": true,
+    "eslint.autoFixOnSave": true,
+    "eslint.enable": true,
+    "eslint.run": "onType",
+    "eslint.nodePath": "./node_modules",
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        {
+            "language": "html",
+            "autoFix": true
+        }
+    ],
+    // personal dictionary
+    "cSpell.words": [
+        "poi",
+        "pois",
+        "urijs",
+        "EABORT",
+        "promisify",
+        "muni",
+        "uber"
+    ],
+    // Enable / Disable compound words like 'errormessage'
+    "cSpell.allowCompoundWords": true,
+    "cSpell.ignorePaths": [
+        "**/node_modules/**",
+        "**/vscode-extension/**",
+        "**.git/**",
+        "**.vscode/**",
+        "**.",
+        "typings"
+    ]
+}
