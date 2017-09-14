@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import withScriptjs from "react-google-maps/lib/async/withScriptjs";
+import $ from "jquery";
 
 import "./App.css";
 import SearchForm from "./components/SearchForm";
 
+(process.env.BACKEND || 'localhost')
 
 // Wrap all `react-google-maps` components with `withGoogleMap` HOC
 // then wraps it into `withScriptjs` HOC
@@ -51,6 +53,7 @@ class App extends Component {
   componentDidMount() {
     this.getUserLocation();
     this.getMuniVehicles();
+    this.getDirections();
   }
 
   getUserLocation() {
@@ -71,6 +74,23 @@ class App extends Component {
         this.setState(newState);
       });
     }
+  }
+
+  getDirections(){
+    let originLat = this.state.map.center.lat;
+    let originLng = this.state.map.center.lng;
+    $.ajax({
+      url: `${domain}/maps` 
+      data: {
+        originLat: originLat,
+        originLng: originLng,
+        destinationLat: 37.790841,
+        destinationLng: -122.4034742
+      },
+      method: 'GET'
+    }, function(res) {
+      console.log(res)
+    });
   }
 
   getMuniVehicles() {
@@ -116,3 +136,14 @@ class App extends Component {
 }
 
 export default App;
+
+// var destinationNation = data.json();
+// var travelStepsList = destinationNation.routes[0].legs[0].steps;
+// var totalTransit = 0;
+// for (x in destinationNation.routes[0].legs[0].steps['duration.text']){
+//   sum += destinationNation.routes[0].legs[0].steps['duration.text'][x];
+// }
+// // travelStepsList.forEach(function (steps) {
+// //   steps[i].duration.value;
+// //   console.log(steps[i].duration.value)
+// // });
