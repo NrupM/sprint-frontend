@@ -6,7 +6,7 @@ import $ from "jquery";
 import "./App.css";
 import SearchForm from "./components/SearchForm";
 
-(process.env.BACKEND || 'localhost')
+const domain = (process.env.BACKEND || 'http://localhost:3001')
 
 // Wrap all `react-google-maps` components with `withGoogleMap` HOC
 // then wraps it into `withScriptjs` HOC
@@ -70,27 +70,32 @@ class App extends Component {
             zoom: 18
           }
         };
-        console.log(newState);
+        console.log("newState is: ", newState);
         this.setState(newState);
       });
     }
   }
 
   getDirections(){
-    let originLat = this.state.map.center.lat;
-    let originLng = this.state.map.center.lng;
+    let originLat = 37.7627837;
+    let originLng = -122.4633105;
+    let destinationLat = 37.790841;
+    let destinationLng = -122.4034742;
+    let mode = 'transit';
+
+    
     $.ajax({
-      url: `${domain}/maps` 
-      data: {
-        originLat: originLat,
-        originLng: originLng,
-        destinationLat: 37.790841,
-        destinationLng: -122.4034742
-      },
-      method: 'GET'
-    }, function(res) {
-      console.log(res)
-    });
+url: "http://localhost:3001/maps?originLat=37.7627837&originLng=-122.4633105&destinationLat=37.7627837&destinationLng=-122.4633105&mode=transit",
+success: function(data) { console.log(data) },
+});
+
+    /*$.ajax({
+      url: `${domain}/maps?originLat=${originLat}&originLng=${originLng}&destinationLat=${destinationLat}&destinationLng=${destinationLng}&mode=${mode}`, 
+      method: 'GET',
+      success: function(res){
+        console.log("res for getDirections is: ", res)
+      }
+    })*/
   }
 
   getMuniVehicles() {
