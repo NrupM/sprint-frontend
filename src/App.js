@@ -6,7 +6,7 @@ import $ from "jquery";
 import "./App.css";
 import SearchForm from "./components/SearchForm";
 
-const domain = (process.env.BACKEND || 'http://localhost:3001')
+const domain = (process.env.BACKEND || 'https://whirlwind.herokuapp.com')
 
 // Wrap all `react-google-maps` components with `withGoogleMap` HOC
 // then wraps it into `withScriptjs` HOC
@@ -77,20 +77,23 @@ class App extends Component {
   }
 
   getDirections(){
-    let originLat = 37.7627837;
-    let originLng = -122.4633105;
-    let destinationLat = 37.790841;
-    let destinationLng = -122.4034742;
+    let originLat = "37.7627837";
+    let originLng = "-122.4633105";
+    let destinationLat = "37.790841";
+    let destinationLng = "-122.4034742";
     let mode = 'transit';
+
+    let newUrl = domain + "/maps?originLat=" + originLat + "&originLng=" + originLng + "&destinationLat="+ destinationLat + "&destinationLng="+destinationLng+"&mode="+mode;
+    console.log('******', newUrl);
 
     
     $.ajax({
-url: "http://localhost:3001/maps?originLat=37.7627837&originLng=-122.4633105&destinationLat=37.7627837&destinationLng=-122.4633105&mode=transit",
+      url: newUrl,
 success: function(data) { console.log(data) },
 });
 
     /*$.ajax({
-      url: `${domain}/maps?originLat=${originLat}&originLng=${originLng}&destinationLat=${destinationLat}&destinationLng=${destinationLng}&mode=${mode}`, 
+      url: 
       method: 'GET',
       success: function(res){
         console.log("res for getDirections is: ", res)
