@@ -49,7 +49,6 @@ class App extends Component {
     };
   }
   onInputChange(e) {
-    console.log(e.target.value)
     this.setState({
       search: e.target.value
     });
@@ -57,10 +56,10 @@ class App extends Component {
   handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       let search = this.state.search;
-
       console.log(search)
       console.log("this state is searchinnnng: ", this.state.search)
-    }
+      this.getDirections();
+    } 
   }
 
   getUserLocation() {
@@ -79,7 +78,6 @@ class App extends Component {
         };
         console.log("newState is: ", newState);
         this.setState(newState);
-        this.getDirections();
       });
     }
 
@@ -99,11 +97,10 @@ class App extends Component {
     let originLng = this.state.map.center.lng;
     // let originLat = "37.7627837";
     // let originLng = "-122.4633105";
-    let destinationLat = "37.790841";
-    let destinationLng = "-122.4034742";
+    let destination = this.state.search;
     let mode = 'transit';
 
-    let newUrl = domain + "/maps?originLat=" + originLat + "&originLng=" + originLng + "&destinationLat="+ destinationLat + "&destinationLng="+destinationLng+"&mode="+mode;
+    let newUrl = domain + "/maps?originLat=" + originLat + "&originLng=" + originLng + "&destination="+ destination +"&mode="+mode;
     console.log('******', newUrl);
 
     
