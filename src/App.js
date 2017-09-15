@@ -44,7 +44,8 @@ class App extends Component {
         zoom: 15
       },
       muniVehicles: [],
-      search: ''
+      search: '',
+      duration: ''
     };
   }
   onInputChange(e) {
@@ -103,26 +104,24 @@ class App extends Component {
     console.log('******', newUrl);
 
     
-    $.ajax({
-      url: newUrl,
-      success: function(data) { console.log(data) },
-    });
+
     fetch(newUrl)
     .then(res => res.json())
     .then(res => {
-      console.log("TARGET ", res.routes[0].legs[0].steps[0])
+      console.log("TARGET ", res.routes[0].legs[0].steps)
       let steps = res.routes[0].legs[0].steps;
-      steps.forEach( step => {
+      steps.forEach(step => {
         console.log(step.travel_mode)
-        if(step.travel_mode === 'TRANSIT'){
-          let duration = step.duration.text
-          console.log("SUCCESS: ", duration)
+        if (step.travel_mode === 'TRANSIT') {
+          let lineName = step.transit_details['line'].short_name
+          let departureStop = step.transit_details.departure_stop.name
+          console.log("SUCCESS: ", lineName + " @ " + departureStop)
+          // this.setState(duration)
         }
       })
       // if(steps.travel_mode === )
       // // this.setState(blah blah blah)
     })
-    .then(res => console.log("fetching res like whoah", res.routes))
     // put your woah res into your state, then call this.state.woah down in render
     .catch(error => console.log("fetching routes error ", error.message))
   
