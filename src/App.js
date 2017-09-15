@@ -108,6 +108,11 @@ class App extends Component {
       url: newUrl,
       success: function(data) { console.log(data) },
     });
+    fetch(newUrl)
+    .then(res => res.json())
+    .then(res => console.log("fetching res like whoah", res))
+    .catch(error => console.log("fetching routes error ", error.message))
+  
   }
 
   getMuniVehicles() {
