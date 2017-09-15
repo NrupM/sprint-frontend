@@ -32,8 +32,6 @@ const AsyncGettingStartedExampleGoogleMap = withScriptjs(
     )
   )
 );
-
-
 const googleMapURL = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCnyu2FJac70-X0EXKaoIxVw5RB4luN0uk';
 class App extends Component {
   constructor(props) {
@@ -46,14 +44,23 @@ class App extends Component {
          },
         zoom: 5
       },
-      muniVehicles: []
+      muniVehicles: [],
+      search: ''
     };
   }
+  onInputChange(e) {
+    console.log(e.target.value)
+    this.setState({
+      search: e.target.value
+    });
+  }
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      let search = this.state.search;
 
-  componentDidMount() {
-    this.getUserLocation();
-    this.getMuniVehicles();
-    this.getDirections();
+      console.log(search)
+      console.log("this state is searchinnnng: ", this.state.search)
+    }
   }
 
   getUserLocation() {
@@ -72,13 +79,26 @@ class App extends Component {
         };
         console.log("newState is: ", newState);
         this.setState(newState);
+        this.getDirections();
       });
     }
-  }
 
+  }
+  componentWillMount(){
+    console.log(this.state.map.center.lat)
+  }
+  componentDidMount() {
+    this.getUserLocation();
+
+    this.getMuniVehicles();
+    console.log("componentDidMount state", this.state.map.center.lat)
+  }
   getDirections(){
-    let originLat = "37.7627837";
-    let originLng = "-122.4633105";
+    console.log(this.state.map.center.lat)
+    let originLat = this.state.map.center.lat;
+    let originLng = this.state.map.center.lng;
+    // let originLat = "37.7627837";
+    // let originLng = "-122.4633105";
     let destinationLat = "37.790841";
     let destinationLng = "-122.4034742";
     let mode = 'transit';
@@ -89,16 +109,8 @@ class App extends Component {
     
     $.ajax({
       url: newUrl,
-success: function(data) { console.log(data) },
-});
-
-    /*$.ajax({
-      url: 
-      method: 'GET',
-      success: function(res){
-        console.log("res for getDirections is: ", res)
-      }
-    })*/
+      success: function(data) { console.log(data) },
+    });
   }
 
   getMuniVehicles() {
@@ -137,7 +149,15 @@ success: function(data) { console.log(data) },
             <div style={{ height: `100%` }}> loading </div>
           }
         />
-        <SearchForm />
+        <div className="search-form">
+          <input
+            onChange={e => this.onInputChange(e)}
+            placeholder="Where to ?"
+            type="text"
+            onKeyPress={this.handleKeyPress}
+            value={this.state.search}
+          />
+        </div>
       </div>
     );
   }
