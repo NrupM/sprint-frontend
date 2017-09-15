@@ -4,7 +4,6 @@ import withScriptjs from "react-google-maps/lib/async/withScriptjs";
 import $ from "jquery";
 
 import "./App.css";
-import SearchForm from "./components/SearchForm";
 
 const domain = (process.env.BACKEND || 'https://whirlwind.herokuapp.com')
 
@@ -39,10 +38,10 @@ class App extends Component {
     this.state = {
       map: {
         center: {
-          lat: 0,
-          lng: 0
+          lat: 37.7627837,
+          lng: -122.4633105
          },
-        zoom: 5
+        zoom: 15
       },
       muniVehicles: [],
       search: ''
@@ -110,7 +109,21 @@ class App extends Component {
     });
     fetch(newUrl)
     .then(res => res.json())
-    .then(res => console.log("fetching res like whoah", res))
+    .then(res => {
+      console.log("TARGET ", res.routes[0].legs[0].steps[0])
+      let steps = res.routes[0].legs[0].steps;
+      steps.forEach( step => {
+        console.log(step.travel_mode)
+        if(step.travel_mode === 'TRANSIT'){
+          let duration = step.duration.text
+          console.log("SUCCESS: ", duration)
+        }
+      })
+      // if(steps.travel_mode === )
+      // // this.setState(blah blah blah)
+    })
+    .then(res => console.log("fetching res like whoah", res.routes))
+    // put your woah res into your state, then call this.state.woah down in render
     .catch(error => console.log("fetching routes error ", error.message))
   
   }
@@ -159,6 +172,11 @@ class App extends Component {
             onKeyPress={this.handleKeyPress}
             value={this.state.search}
           />
+        </div>
+        <div className="transit-circle">
+          <div className="transit-duration">blah blah blah
+            </div>
+
         </div>
       </div>
     );

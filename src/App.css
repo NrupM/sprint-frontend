@@ -25,6 +25,23 @@
 	color: #222222;
 }
 
-.search-form input:focus {
+/* .search-form input:focus {
 	outline: 0;
+} */
+
+.transit-circle {
+	z-index: 1;
+	position: absolute;
+	width: 100px;
+	border-radius: 50%;
+	height: 100px;
+	margin-top: 700px;
+	max-width: 500px;
+	border: none;
+	background-color: white;
+	color: #222222;
+}
+.transit-duration {
+	text-align: center;
+
 }
