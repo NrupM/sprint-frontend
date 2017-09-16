@@ -1,16 +1,11 @@
 import React, { Component } from "react";
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import withScriptjs from "react-google-maps/lib/async/withScriptjs";
-import $ from "jquery";
-
+// import $ from "jquery";
 import "./App.css";
 
 const domain = (process.env.BACKEND || 'https://whirlwind.herokuapp.com')
 
-// Wrap all `react-google-maps` components with `withGoogleMap` HOC
-// then wraps it into `withScriptjs` HOC
-// It loads Google Maps JavaScript API v3 for you asynchronously.
-// Name the component AsyncGettingStartedExampleGoogleMap
 const AsyncGettingStartedExampleGoogleMap = withScriptjs(
   withGoogleMap(
     props => (
@@ -55,17 +50,12 @@ class App extends Component {
   }
   handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      let search = this.state.search;
-      console.log(search)
-      console.log("this state is searchinnnng: ", this.state.search)
       this.getDirections();
     } 
   }
-
   getUserLocation() {
     if (navigator && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(pos => {
-        console.log("getUserLocation called");
         const coords = pos.coords;
         const newState = {
           map: {
@@ -76,47 +66,79 @@ class App extends Component {
             zoom: 18
           }
         };
-        console.log("newState is: ", newState);
         this.setState(newState);
       });
     }
-
-  }
-  componentWillMount(){
-    console.log(this.state.map.center.lat)
   }
   componentDidMount() {
     this.getUserLocation();
-
     this.getMuniVehicles();
-    console.log("componentDidMount state", this.state.map.center.lat)
   }
   getDirections(){
-    console.log(this.state.map.center.lat)
     let originLat = this.state.map.center.lat;
     let originLng = this.state.map.center.lng;
     // let originLat = "37.7627837";
     // let originLng = "-122.4633105";
     let destination = this.state.search;
     let mode = 'transit';
-
-    let newUrl = domain + "/maps?originLat=" + originLat + "&originLng=" + originLng + "&destination="+ destination +"&mode="+mode;
-    console.log('******', newUrl);
-
+    let newGoogleUrl = domain + "/maps?originLat=" + originLat + "&originLng=" + originLng + "&destination="+ destination +"&mode="+mode;
     
-
-    fetch(newUrl)
+    //// FEETCH GOOGLE API INFO
+    fetch(newGoogleUrl)
     .then(res => res.json())
     .then(res => {
-      console.log("TARGET ", res.routes[0].legs[0].steps)
+      console.log("TARGET ", res)
       let steps = res.routes[0].legs[0].steps;
+      console.log(steps)
       steps.forEach(step => {
-        console.log(step.travel_mode)
-        if (step.travel_mode === 'TRANSIT') {
+        if (step.travel_mode === 'TRANSIT' && step.transit_details['line'].agencies[0].name === 'SFMTA'){
           let lineName = step.transit_details['line'].short_name
           let departureStop = step.transit_details.departure_stop.name
+          // TODO: Figure out the diretion (inbound or outbound her)
+          // var direction = longstart - longend 
+          // if negative, then inbound, else if positive, outbound
           console.log("SUCCESS: ", lineName + " @ " + departureStop)
+          let busUrl = `http://restbus.info/api/agencies/sf-muni/routes/${lineName}`
+          fetch(busUrl)
+          .then(res => res.json())
+          .then(res => {
+              console.log("this is the restBus lineName data", res)
+              let stops = res.stops
+              console.log("these are the stops for my line", stops)
+              console.log("this is the departure stop I need to look for", departureStop)
+              stops.forEach(stop => {
+                // if google name contains 'station' in the end, only use first word
+                // if google name contains 'station', only use first word in restBus
+                // check for inbound or outbound when in stations
+                if(stop.title.split(' ')[0] === departureStop.split(' ')[0]){
+                  console.log(stop.id);
+                  let stopId = stop.id;
+                  let stopIdUrl = `http://restbus.info/api/agencies/sf-muni/routes/${lineName}/stops/${stopId}/predictions`
+                  console.log(stopIdUrl)
+                }
+                // console.log("RESTBus: ", stop.title)
+                // console.log("Google: " , departureStop)
+                // if(stop.title === departureStop){
+                //   let stopId = stop.title
+                //   console.log("successful stopId:", stopId)
+                // }
+                console.log("error with matching departureStop ")
+              })
+          })
+            // iterate through stops to find a stop title that matches line name
+            // stopID = whatever you find in this object right now
+            // then go to the end point for that particular stop
+            // let stopUrl = http://restbus.info/api/agencies/sf-muni/routes/N/whateves
+            // fetch(stopUrl)
+            //   dig in there until you find the stop times in seconds
+            //   console.log those out 
+            //   set state.
+            //   celebrate like MAD!!!!!
           // this.setState(duration)
+        } else if (step.travel_mode === 'TRANSIT' && step.transit_details['line'].agencies[0].name === 'Bay Area Rapid Transit'){
+          alert('We do not support BART currently, please try another destination')
+                    // TODO change alert to something nicer 
+
         }
       })
       // if(steps.travel_mode === )
@@ -125,6 +147,8 @@ class App extends Component {
     // put your woah res into your state, then call this.state.woah down in render
     .catch(error => console.log("fetching routes error ", error.message))
   
+
+
   }
 
   getMuniVehicles() {
@@ -172,25 +196,14 @@ class App extends Component {
             value={this.state.search}
           />
         </div>
-        <div className="transit-circle">
-          <div className="transit-duration">blah blah blah
+        <div className="transit-circle"><i className="fa fa-bus fa-fw"></i>
+          <div className="transit-circle-text">{this.state.search}
             </div>
-
         </div>
+        
       </div>
     );
   }
 }
 
 export default App;
-
-// var destinationNation = data.json();
-// var travelStepsList = destinationNation.routes[0].legs[0].steps;
-// var totalTransit = 0;
-// for (x in destinationNation.routes[0].legs[0].steps['duration.text']){
-//   sum += destinationNation.routes[0].legs[0].steps['duration.text'][x];
-// }
-// // travelStepsList.forEach(function (steps) {
-// //   steps[i].duration.value;
-// //   console.log(steps[i].duration.value)
-// // });
