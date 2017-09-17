@@ -40,7 +40,7 @@ class App extends Component {
       },
       muniVehicles: [],
       search: '',
-      duration: ''
+      transitDuration: null
     };
   }
   onInputChange(e) {
@@ -50,7 +50,7 @@ class App extends Component {
   }
   handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      this.getDirections();
+      this.getTransitDirections();
     } 
   }
   getUserLocation() {
@@ -74,83 +74,67 @@ class App extends Component {
     this.getUserLocation();
     this.getMuniVehicles();
   }
-  getDirections(){
+  getTransitDirections(){
     let originLat = this.state.map.center.lat;
     let originLng = this.state.map.center.lng;
-    // let originLat = "37.7627837";
-    // let originLng = "-122.4633105";
     let destination = this.state.search;
     let mode = 'transit';
     let newGoogleUrl = domain + "/maps?originLat=" + originLat + "&originLng=" + originLng + "&destination="+ destination +"&mode="+mode;
-    
-    //// FEETCH GOOGLE API INFO
+    console.log(newGoogleUrl)
+    //// FEETCH GOOGLE TRANSIT API INFO
     fetch(newGoogleUrl)
     .then(res => res.json())
     .then(res => {
       console.log("TARGET ", res)
-      let steps = res.routes[0].legs[0].steps;
-      console.log(steps)
-      steps.forEach(step => {
-        if (step.travel_mode === 'TRANSIT' && step.transit_details['line'].agencies[0].name === 'SFMTA'){
-          let lineName = step.transit_details['line'].short_name
-          let departureStop = step.transit_details.departure_stop.name
-          // TODO: Figure out the diretion (inbound or outbound her)
-          // var direction = longstart - longend 
-          // if negative, then inbound, else if positive, outbound
-          console.log("SUCCESS: ", lineName + " @ " + departureStop)
-          let busUrl = `http://restbus.info/api/agencies/sf-muni/routes/${lineName}`
-          fetch(busUrl)
-          .then(res => res.json())
-          .then(res => {
-              console.log("this is the restBus lineName data", res)
-              let stops = res.stops
-              console.log("these are the stops for my line", stops)
-              console.log("this is the departure stop I need to look for", departureStop)
-              stops.forEach(stop => {
-                // if google name contains 'station' in the end, only use first word
-                // if google name contains 'station', only use first word in restBus
-                // check for inbound or outbound when in stations
-                if(stop.title.split(' ')[0] === departureStop.split(' ')[0]){
-                  console.log(stop.id);
-                  let stopId = stop.id;
-                  let stopIdUrl = `http://restbus.info/api/agencies/sf-muni/routes/${lineName}/stops/${stopId}/predictions`
-                  console.log(stopIdUrl)
-                }
-                // console.log("RESTBus: ", stop.title)
-                // console.log("Google: " , departureStop)
-                // if(stop.title === departureStop){
-                //   let stopId = stop.title
-                //   console.log("successful stopId:", stopId)
-                // }
-                console.log("error with matching departureStop ")
-              })
-          })
-            // iterate through stops to find a stop title that matches line name
-            // stopID = whatever you find in this object right now
-            // then go to the end point for that particular stop
-            // let stopUrl = http://restbus.info/api/agencies/sf-muni/routes/N/whateves
-            // fetch(stopUrl)
-            //   dig in there until you find the stop times in seconds
-            //   console.log those out 
-            //   set state.
-            //   celebrate like MAD!!!!!
-          // this.setState(duration)
-        } else if (step.travel_mode === 'TRANSIT' && step.transit_details['line'].agencies[0].name === 'Bay Area Rapid Transit'){
-          alert('We do not support BART currently, please try another destination')
-                    // TODO change alert to something nicer 
+      let transitDuration = res.routes[0].legs[0].duration.text
+      console.log("transitDuration before setState", transitDuration)
 
-        }
-      })
-      // if(steps.travel_mode === )
-      // // this.setState(blah blah blah)
+      // GOOGLE TRANSIT DATA
+      // steps.forEach(step => {
+      //   if (step.travel_mode === 'TRANSIT'){
+      //     let lineName = step.transit_details['line'].short_name
+      //     let departureStop = step.transit_details.departure_stop.name
+      //   }
+      // })
+      const newState = {
+        transitDuration: transitDuration
+      };
+      this.setState(newState)
+      console.log('transitDuration has updated state to', this.state.transitDuration)
     })
     // put your woah res into your state, then call this.state.woah down in render
     .catch(error => console.log("fetching routes error ", error.message))
-  
-
-
   }
+  getDrivingDirections() {
+    let originLat = this.state.map.center.lat;
+    let originLng = this.state.map.center.lng;
+    let destination = this.state.search;
+    let newGoogleUrl = domain + "/maps?originLat=" + originLat + "&originLng=" + originLng + "&destination=" + destination;
+    console.log(newGoogleUrl)
+    //// FEETCH GOOGLE DRIVING API INFO
+    fetch(newGoogleUrl)
+      .then(res => res.json())
+      .then(res => {
+        console.log("TARGET ", res)
+        let transitDuration = res.routes[0].legs[0].duration.text
+        console.log("transitDuration before setState", transitDuration)
 
+        // GOOGLE TRANSIT DATA
+        // steps.forEach(step => {
+        //   if (step.travel_mode === 'TRANSIT'){
+        //     let lineName = step.transit_details['line'].short_name
+        //     let departureStop = step.transit_details.departure_stop.name
+        //   }
+        // })
+        const newState = {
+          transitDuration: transitDuration
+        };
+        this.setState(newState)
+        console.log('transitDuration has updated state to', this.state.transitDuration)
+      })
+      // put your woah res into your state, then call this.state.woah down in render
+      .catch(error => console.log("fetching routes error ", error.message))
+  }
   getMuniVehicles() {
     fetch("http://107.170.254.162/vehicles")
       .then(res => res.json())
@@ -196,9 +180,14 @@ class App extends Component {
             value={this.state.search}
           />
         </div>
-        <div className="transit-circle"><i className="fa fa-bus fa-fw"></i>
-          <div className="transit-circle-text">{this.state.search}
-            </div>
+        <div className="circles-container">
+          <div className="transit-circle"><i className="fa fa-bus fa-fw"></i>
+            <div className="transit-circle-text">{this.state.transitDuration}</div>
+          </div>
+          <div className="driving-circle"><i className="fa fa-car"></i>
+            <div className="driving-circle-text">blah blah
+          </div>
+          </div>
         </div>
         
       </div>
