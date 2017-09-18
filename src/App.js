@@ -40,8 +40,6 @@ class App extends Component {
       },
       muniVehicles: [],
       search: '',
-      transitDuration: null,
-      drivingDuration: null,
       transitArrivalTime: null,
       drivingArrivalTime: null
     };
@@ -54,7 +52,8 @@ class App extends Component {
   handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       this.getTransitDirections();
-      this.getDrivingDirections()
+      // this.getDrivingDirections()
+      // this.findFastestRoute();
     } 
   }
   getUserLocation() {
@@ -90,17 +89,13 @@ class App extends Component {
     .then(res => res.json())
     .then(res => {
       console.log("TARGET ", res)
-      // let transitDurationSeconds = Math.floor(transitDurationSeconds / 60)
-      let transitDuration = res.routes[0].legs[0].duration.text
-      console.log("transitDuration before setState", transitDuration)
       let transitArrivalTime = res.routes[0].legs[0].arrival_time.text
       console.log("transitArrivalTime before setState", transitArrivalTime)
       const newState = {
-        transitDuration: transitDuration,
         transitArrivalTime: transitArrivalTime
       };
       this.setState(newState)
-      console.log('transitDuration has updated state to', this.state.transitDuration)
+      this.getDrivingDirections()
       console.log('transitArrivalTime has updated state to', this.state.transitArrivalTime)
     })
     // put your woah res into your state, then call this.state.woah down in render
@@ -117,8 +112,6 @@ class App extends Component {
       .then(res => res.json())
       .then(res => {
         console.log("TARGET ", res)
-        let drivingDuration = res.routes[0].legs[0].duration.text
-        console.log("drivingDuration before setState", drivingDuration)
         let drivingDurationSeconds = res.routes[0].legs[0].duration.value;
         let drivingDurationMiliseconds = drivingDurationSeconds * 1000
         let drivingDateTime = new Date((Date.now() + drivingDurationMiliseconds))
@@ -132,10 +125,11 @@ class App extends Component {
 
         console.log("driving arrival time: ", drivingArrivalTime)
         const newState = {
-          drivingDuration: drivingDuration,
           drivingArrivalTime: drivingArrivalTime
         };
         this.setState(newState)
+        this.findFastestRoute();
+
       })
       // put your woah res into your state, then call this.state.woah down in render
       .catch(error => console.log("fetching routes error ", error.message))
@@ -156,11 +150,16 @@ class App extends Component {
       );
   }
   findFastestRoute(){
-    if(this.state.transitDuration < this.state.drivingDuration){
-      console.log(this.state.transitDuration)
-      //splice 
-      //turn into integer
-      //then compare it 
+    if(this.state.drivingArrivalTime < this.state.transitArrivalTime){
+      let fastest = "DRIVING"
+      console.log("fastest driving time is: ", fastest)
+      //compare
+      //set state of fastest to driving
+    }else if (this.state.drivingArrivalTime > this.state.transitArrivalTime){
+      let fastest = "TRANSIT"
+      console.log("fastest transit time is:", fastest)
+    } else {
+      console.log("neither time is faster")
     }
   }
   render() {
@@ -193,18 +192,13 @@ class App extends Component {
           />
         </div>
         <div className="circles-container">
-
           <div className="driving-circle"><img src="driving.png" alt="car icon" />
             <div className="arrival-time">{this.state.drivingArrivalTime}</div>
-            <div className="driving-circle-duration">{this.state.drivingDuration}</div>
-
           </div>
           <div className="transit-circle"><img src="transportation.png" alt="bus icon" />
             <div className="arrival-time">{this.state.transitArrivalTime}</div>
-            <div className="transit-circle-duration">{this.state.transitDuration}  </div>
           </div>
         </div>
-        
       </div>
     );
   }
