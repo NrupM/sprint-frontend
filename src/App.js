@@ -195,14 +195,13 @@ class App extends Component {
         <div className="circles-container">
 
           <div className="driving-circle"><img src="driving.png" alt="car icon" />
-            <div className="driving-circle-duration">{this.state.drivingDuration}</div>
             <div className="arrival-time">{this.state.drivingArrivalTime}</div>
+            <div className="driving-circle-duration">{this.state.drivingDuration}</div>
 
           </div>
           <div className="transit-circle"><img src="transportation.png" alt="bus icon" />
-            <div className="transit-circle-duration">{this.state.transitDuration}  </div>
             <div className="arrival-time">{this.state.transitArrivalTime}</div>
-
+            <div className="transit-circle-duration">{this.state.transitDuration}  </div>
           </div>
         </div>
         
