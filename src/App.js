@@ -119,15 +119,19 @@ class App extends Component {
         console.log("TARGET ", res)
         let drivingDuration = res.routes[0].legs[0].duration.text
         console.log("drivingDuration before setState", drivingDuration)
-        let drivingdurationSeconds = res.routes[0].legs[0].duration.value;
-        let drivingArrivalTime = Math.ceil(drivingdurationSeconds * 1000)
+        let drivingDurationSeconds = res.routes[0].legs[0].duration.value;
+        let drivingDurationMiliseconds = Math.ceil(drivingDurationSeconds * 1000)
+        //split
+        //
+        
+        let drivingDateTime = new Date((Date.now() + drivingDurationMiliseconds))
+        let drivingArrivalTime = drivingDateTime.toLocaleTimeString()
         console.log("driving arrival time: ", drivingArrivalTime)
         const newState = {
           drivingDuration: drivingDuration,
           drivingArrivalTime: drivingArrivalTime
         };
         this.setState(newState)
-        console.log("sum of driving seconds", drivingArrivalTime)
       })
       // put your woah res into your state, then call this.state.woah down in render
       .catch(error => console.log("fetching routes error ", error.message))
