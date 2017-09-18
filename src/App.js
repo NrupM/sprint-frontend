@@ -42,7 +42,8 @@ class App extends Component {
       search: '',
       transitDuration: null,
       drivingDuration: null,
-      transitArrivalTime: null
+      transitArrivalTime: null,
+      drivingArrivalTime: null
     };
   }
   onInputChange(e) {
@@ -89,6 +90,7 @@ class App extends Component {
     .then(res => res.json())
     .then(res => {
       console.log("TARGET ", res)
+      // let transitDurationSeconds = Math.floor(transitDurationSeconds / 60)
       let transitDuration = res.routes[0].legs[0].duration.text
       console.log("transitDuration before setState", transitDuration)
       let transitArrivalTime = res.routes[0].legs[0].arrival_time.text
@@ -116,18 +118,16 @@ class App extends Component {
       .then(res => {
         console.log("TARGET ", res)
         let drivingDuration = res.routes[0].legs[0].duration.text
-        console.log("transitDuration before setState", drivingDuration)
+        console.log("drivingDuration before setState", drivingDuration)
+        let drivingdurationSeconds = res.routes[0].legs[0].duration.value;
+        let drivingArrivalTime = Math.ceil(drivingdurationSeconds * 1000)
+        console.log("driving arrival time: ", drivingArrivalTime)
         const newState = {
-          drivingDuration: drivingDuration
+          drivingDuration: drivingDuration,
+          drivingArrivalTime: drivingArrivalTime
         };
         this.setState(newState)
-        console.log('drivingDuration has updated state to', this.state.drivingDuration)
-        let steps = res.routes[0].legs[0].steps;
-        let sum = 0;
-        steps.forEach(step => {
-          sum += step.duration.value
-        })
-        console.log("sum of ", sum)
+        console.log("sum of driving seconds", drivingArrivalTime)
       })
       // put your woah res into your state, then call this.state.woah down in render
       .catch(error => console.log("fetching routes error ", error.message))
@@ -147,7 +147,14 @@ class App extends Component {
         )
       );
   }
-
+  findFastestRoute(){
+    if(this.state.transitDuration < this.state.drivingDuration){
+      console.log(this.state.transitDuration)
+      //splice 
+      //turn into integer
+      //then compare it 
+    }
+  }
   render() {
     return (
       <div className="App">
@@ -179,13 +186,13 @@ class App extends Component {
         </div>
         <div className="circles-container">
 
-          <div className="driving-circle"><img src="mini-suv.png" alt="car icon" />
+          <div className="driving-circle"><img src="driving.png" alt="car icon" />
             <div className="driving-circle-duration">{this.state.drivingDuration}</div>
-            <div className="arrival-time">{this.state.driveArrivalTime}</div>
+            <div className="arrival-time">{this.state.drivingArrivalTime}</div>
 
           </div>
           <div className="transit-circle"><img src="transportation.png" alt="bus icon" />
-            <div className="transit-circle-duration">{this.state.transitDuration}</div>
+            <div className="transit-circle-duration">{this.state.transitDuration}  </div>
             <div className="arrival-time">{this.state.transitArrivalTime}</div>
 
           </div>

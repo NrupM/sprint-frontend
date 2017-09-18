@@ -7,6 +7,7 @@
 	position: relative;
 	width: 100%;
 	height: 0;
+
 }
 
 .search-form input {
@@ -19,11 +20,12 @@
 	box-sizing: border-box;
 	size: 18px;
 	color: #222222;
+	box-shadow: 3px 3px 28px 0px rgba(0,0,0,0.4);
 }
 
-/* .search-form input:focus {
+.search-form input:focus {
 	outline: 0;
-} */
+}
 
 .circles-container {
 	z-index: 1;
@@ -52,9 +54,9 @@
 }
 .driving-circle img {
 	width: 12vh;
-	align-self: flex-start;
-	opacity: 0.65
-
+	margin-top: 3vh;	
+	opacity: 0.65;
+	margin-bottom: 1.7vh;
 }
 .transit-circle {
 	z-index: 1;
