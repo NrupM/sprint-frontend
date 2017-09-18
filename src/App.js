@@ -120,12 +120,16 @@ class App extends Component {
         let drivingDuration = res.routes[0].legs[0].duration.text
         console.log("drivingDuration before setState", drivingDuration)
         let drivingDurationSeconds = res.routes[0].legs[0].duration.value;
-        let drivingDurationMiliseconds = Math.ceil(drivingDurationSeconds * 1000)
-        //split
-        //
-        
+        let drivingDurationMiliseconds = drivingDurationSeconds * 1000
         let drivingDateTime = new Date((Date.now() + drivingDurationMiliseconds))
-        let drivingArrivalTime = drivingDateTime.toLocaleTimeString()
+        console.log("driving duration miliseconds: ", drivingDurationMiliseconds)
+        console.log("driving date time: ", drivingDateTime)
+        let drivingArrivalString = drivingDateTime.toLocaleTimeString()
+        let drivingInMinutes = drivingArrivalString.split('').slice(0,-6).join('')
+        console.log("driving in Minutes: ", drivingInMinutes);
+        let drivingAmPm = drivingArrivalString.split('').slice(-2).join('')
+        let drivingArrivalTime =  `${drivingInMinutes}${drivingAmPm}`
+
         console.log("driving arrival time: ", drivingArrivalTime)
         const newState = {
           drivingDuration: drivingDuration,

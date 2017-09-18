@@ -37,6 +37,7 @@
 	/* align-items: center; */
 	justify-content: center;
 }
+
 .driving-circle {
 	z-index: 1;
 	position: relative;
@@ -52,12 +53,14 @@
 	color: #222222;
 	box-shadow: 3px 3px 28px 0px rgba(0,0,0,0.44);
 }
+
 .driving-circle img {
 	width: 12vh;
 	margin-top: 3vh;	
 	opacity: 0.65;
 	margin-bottom: 1.7vh;
 }
+
 .transit-circle {
 	z-index: 1;
 	position: relative;
@@ -83,4 +86,5 @@
 .arrival-time{
 	opacity: 0.55;
 	size: 14px;	
+	text-transform: lowercase;
 }
