@@ -207,9 +207,7 @@ class App extends Component {
         </div>
         <div className="circles-container">
           <div>{recommendation}</div>
-          <div className="driving-circle"><img src="driving.png" alt="car icon" />
-            <div className="arrival-time">{this.state.drivingArrivalTime}</div>
-          </div>
+
           <div className="transit-circle"><img src="transportation.png" alt="bus icon" />
             <div className="arrival-time">{this.state.transitArrivalTime}</div>
           </div>
