@@ -31,10 +31,10 @@
 	z-index: 1;
 	position: relative;
 	height: 0;
-	margin-top: 70vh;
+	margin-top: 80vh;
 	display:flex;
 	flex-direction:row;
-	/* align-items: center; */
+	align-items: center;
 	justify-content: center;
 }
 
@@ -44,8 +44,8 @@
 	width: 90px;
 	height: 90px;
 	border-radius: 50%;
-	padding: 40px;
-	margin-right: 1vh;
+	padding: 20px;
+	margin-right: 2vw;
 	max-width: 500px;
 	align-items: top;
 	border: none;
@@ -56,9 +56,8 @@
 
 .driving-circle img {
 	width: 12vh;
-	margin-top: 3vh;	
+	margin-top: 2vh;	
 	opacity: 0.65;
-	margin-bottom: 1.7vh;
 }
 
 .transit-circle {
@@ -67,18 +66,37 @@
 	width: 90px;
 	height: 90px;
 	border-radius: 50%;
-	padding: 40px;
-	margin-left: 1vw;
+	padding: 20px;
+	margin-left: 2vw;
 	max-width: 500px;
 	border: none;
 	background-color: white;
 	color: #222222;
 	box-shadow: 3px 3px 28px 0px rgba(0,0,0,0.44);
 }
-
+.driving-circle-fastest{
+	z-index: 1;
+	position: relative;
+	width: 90px;
+	height: 90px;
+	border-radius: 50%;
+	padding: 20px;
+	margin-left: 2vw;
+	max-width: 500px;
+	border: none;
+	background-color: white;
+	color: #222222;
+	box-shadow: 3px 3px 28px 0px rgba(7, 224, 36, 0.53);
+}
+.driving-circle-fastest img {
+	width: 12vh;
+	margin-top: 2vh;	
+	opacity: 0.65;
+}
 .transit-circle img {
-	width: 10vh;
-	align-self: flex-start;
+	width: 9vh;
+	margin-top: -1vh;
+	/* align-self: flex-start; */
 	color: #333333;
 	opacity: 0.65
 }

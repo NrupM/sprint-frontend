@@ -41,7 +41,8 @@ class App extends Component {
       muniVehicles: [],
       search: '',
       transitArrivalTime: null,
-      drivingArrivalTime: null
+      drivingArrivalTime: null,
+      fastest: null,
     };
   }
   onInputChange(e) {
@@ -151,18 +152,31 @@ class App extends Component {
   }
   findFastestRoute(){
     if(this.state.drivingArrivalTime < this.state.transitArrivalTime){
-      let fastest = "DRIVING"
-      console.log("fastest driving time is: ", fastest)
+       this.setState({fastest: "DRIVING"})
       //compare
       //set state of fastest to driving
     }else if (this.state.drivingArrivalTime > this.state.transitArrivalTime){
-      let fastest = "TRANSIT"
-      console.log("fastest transit time is:", fastest)
+      this.setState({ fastest: "TRANSIT" })
     } else {
       console.log("neither time is faster")
-    }
+    } console.log(this.state.fastest)
+
   }
   render() {
+    let recommendation = null;
+    const localFastest = this.state.fastest
+    if(localFastest === "DRIVING"){
+      recommendation = (
+        <div className="driving-circle-fastest"><img src="driving.png" alt="car icon"/>
+          <div className="arrival-time">{this.state.drivingArrivalTime}</div>
+        </div >)
+    } else {
+      recommendation =(
+        <div className="driving-circle"><img src="driving.png" alt="car icon" />
+          <div className="arrival-time">{this.state.drivingArrivalTime}</div>
+        </div >)
+    }
+
     return (
       <div className="App">
        <AsyncGettingStartedExampleGoogleMap
@@ -192,6 +206,7 @@ class App extends Component {
           />
         </div>
         <div className="circles-container">
+          <div>{recommendation}</div>
           <div className="driving-circle"><img src="driving.png" alt="car icon" />
             <div className="arrival-time">{this.state.drivingArrivalTime}</div>
           </div>
