@@ -40,7 +40,9 @@ class App extends Component {
       },
       muniVehicles: [],
       search: '',
-      transitDuration: null
+      transitDuration: null,
+      drivingDuration: null,
+      transitArrivalTime: null
     };
   }
   onInputChange(e) {
@@ -51,6 +53,7 @@ class App extends Component {
   handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       this.getTransitDirections();
+      this.getDrivingDirections()
     } 
   }
   getUserLocation() {
@@ -88,19 +91,15 @@ class App extends Component {
       console.log("TARGET ", res)
       let transitDuration = res.routes[0].legs[0].duration.text
       console.log("transitDuration before setState", transitDuration)
-
-      // GOOGLE TRANSIT DATA
-      // steps.forEach(step => {
-      //   if (step.travel_mode === 'TRANSIT'){
-      //     let lineName = step.transit_details['line'].short_name
-      //     let departureStop = step.transit_details.departure_stop.name
-      //   }
-      // })
+      let transitArrivalTime = res.routes[0].legs[0].arrival_time.text
+      console.log("transitArrivalTime before setState", transitArrivalTime)
       const newState = {
-        transitDuration: transitDuration
+        transitDuration: transitDuration,
+        transitArrivalTime: transitArrivalTime
       };
       this.setState(newState)
       console.log('transitDuration has updated state to', this.state.transitDuration)
+      console.log('transitArrivalTime has updated state to', this.state.transitArrivalTime)
     })
     // put your woah res into your state, then call this.state.woah down in render
     .catch(error => console.log("fetching routes error ", error.message))
@@ -116,21 +115,19 @@ class App extends Component {
       .then(res => res.json())
       .then(res => {
         console.log("TARGET ", res)
-        let transitDuration = res.routes[0].legs[0].duration.text
-        console.log("transitDuration before setState", transitDuration)
-
-        // GOOGLE TRANSIT DATA
-        // steps.forEach(step => {
-        //   if (step.travel_mode === 'TRANSIT'){
-        //     let lineName = step.transit_details['line'].short_name
-        //     let departureStop = step.transit_details.departure_stop.name
-        //   }
-        // })
+        let drivingDuration = res.routes[0].legs[0].duration.text
+        console.log("transitDuration before setState", drivingDuration)
         const newState = {
-          transitDuration: transitDuration
+          drivingDuration: drivingDuration
         };
         this.setState(newState)
-        console.log('transitDuration has updated state to', this.state.transitDuration)
+        console.log('drivingDuration has updated state to', this.state.drivingDuration)
+        let steps = res.routes[0].legs[0].steps;
+        let sum = 0;
+        steps.forEach(step => {
+          sum += step.duration.value
+        })
+        console.log("sum of ", sum)
       })
       // put your woah res into your state, then call this.state.woah down in render
       .catch(error => console.log("fetching routes error ", error.message))
@@ -181,12 +178,16 @@ class App extends Component {
           />
         </div>
         <div className="circles-container">
-          <div className="transit-circle"><i className="fa fa-bus fa-fw"></i>
-            <div className="transit-circle-text">{this.state.transitDuration}</div>
+
+          <div className="driving-circle"><img src="mini-suv.png" alt="car icon" />
+            <div className="driving-circle-duration">{this.state.drivingDuration}</div>
+            <div className="arrival-time">{this.state.driveArrivalTime}</div>
+
           </div>
-          <div className="driving-circle"><i className="fa fa-car"></i>
-            <div className="driving-circle-text">blah blah
-          </div>
+          <div className="transit-circle"><img src="transportation.png" alt="bus icon" />
+            <div className="transit-circle-duration">{this.state.transitDuration}</div>
+            <div className="arrival-time">{this.state.transitArrivalTime}</div>
+
           </div>
         </div>
         

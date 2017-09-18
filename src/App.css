@@ -1,6 +1,7 @@
 .App {
 	text-align: center;
 }	
+
 .search-form {
 	z-index: 1;
 	position: relative;
@@ -28,39 +29,56 @@
 	z-index: 1;
 	position: relative;
 	height: 0;
-	margin-top: 550px;
+	margin-top: 70vh;
 	display:flex;
 	flex-direction:row;
-	align-items: center;
-	flex-wrap: wrap; 
+	/* align-items: center; */
 	justify-content: center;
-
 }
 .driving-circle {
 	z-index: 1;
 	position: relative;
-	width: 150px;
-	height: 150px;
+	width: 90px;
+	height: 90px;
+	border-radius: 50%;
+	padding: 40px;
+	margin-right: 1vh;
+	max-width: 500px;
+	align-items: top;
+	border: none;
+	background-color: white;
+	color: #222222;
+	box-shadow: 3px 3px 28px 0px rgba(0,0,0,0.44);
+}
+.driving-circle img {
+	width: 12vh;
+	align-self: flex-start;
+	opacity: 0.65
+
+}
+.transit-circle {
+	z-index: 1;
+	position: relative;
+	width: 90px;
+	height: 90px;
 	border-radius: 50%;
 	padding: 40px;
 	margin-left: 1vw;
 	max-width: 500px;
 	border: none;
-	background-color: yellow;
-	color: #222222;
-	box-shadow: 3px 3px 28px 0px rgba(0,0,0,0.44);
-}
-.transit-circle {
-	z-index: 1;
-	position: relative;
-	width: 150px;
-	height: 150px;
-	border-radius: 50%;
-	padding: 40px;
-	margin-right: 1vh;
-	max-width: 500px;
-	border: none;
 	background-color: white;
 	color: #222222;
 	box-shadow: 3px 3px 28px 0px rgba(0,0,0,0.44);
+}
+
+.transit-circle img {
+	width: 10vh;
+	align-self: flex-start;
+	color: #333333;
+	opacity: 0.65
+}
+
+.arrival-time{
+	opacity: 0.55;
+	size: 14px;	
 }
