@@ -36,7 +36,7 @@ class App extends Component {
           lat: 37.7627837,
           lng: -122.4633105
          },
-        zoom: 15
+        zoom: 16
       },
       muniVehicles: [],
       search: '',
@@ -44,6 +44,7 @@ class App extends Component {
       drivingArrivalTime: null,
       fastest: null,
     };
+    this.getMuniVehicles = this.getMuniVehicles.bind(this);
   }
   onInputChange(e) {
     this.setState({
@@ -53,8 +54,6 @@ class App extends Component {
   handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       this.getTransitDirections();
-      // this.getDrivingDirections()
-      // this.findFastestRoute();
     } 
   }
   getUserLocation() {
@@ -67,7 +66,7 @@ class App extends Component {
               lat: coords.latitude,
               lng: coords.longitude
             },
-            zoom: 18
+            zoom: 16
           }
         };
         this.setState(newState);
@@ -143,6 +142,7 @@ class App extends Component {
           muniVehicles: res
         };
         this.setState(newState);
+        setTimeout(this.getMuniVehicles, 5000);
       })
       .catch(error =>
         console.log(
