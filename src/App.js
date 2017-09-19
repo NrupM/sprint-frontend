@@ -164,7 +164,7 @@ class App extends Component {
     const localFastest = this.state.fastest
     if(localFastest === "DRIVING"){
       recommendation = (
-        <div className="driving-circle-fastest"><img src="driving-copy.png" alt="car icon"/>
+        <div className="driving-circle-fastest"><img src="driving-green.png" alt="car icon"/>
           <div className="arrival-time">{this.state.drivingArrivalTime}</div>
         </div >)
     } else {
@@ -177,7 +177,7 @@ class App extends Component {
     const localTransitFastest = this.state.fastest
     if (localTransitFastest === "TRANSIT") {
       transitRecommendation = (
-        <div className="transit-circle-fastest"><img src="transportation-copy.png" alt="bus icon" />
+        <div className="transit-circle-fastest"><img src="transportation-green.png" alt="bus icon" />
           <div className="arrival-time">{this.state.transitArrivalTime}</div>
         </div >)
     } else {
