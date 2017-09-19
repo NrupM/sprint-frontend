@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import withScriptjs from "react-google-maps/lib/async/withScriptjs";
-// import $ from "jquery";
 import "./App.css";
 
 const domain = (process.env.BACKEND || 'https://whirlwind.herokuapp.com')
@@ -142,7 +141,7 @@ class App extends Component {
           muniVehicles: res
         };
         this.setState(newState);
-        setTimeout(this.getMuniVehicles, 5000);
+        setTimeout(this.getMuniVehicles, 3000);
       })
       .catch(error =>
         console.log(
