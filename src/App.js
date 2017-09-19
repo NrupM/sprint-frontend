@@ -153,21 +153,19 @@ class App extends Component {
   findFastestRoute(){
     if(this.state.drivingArrivalTime < this.state.transitArrivalTime){
        this.setState({fastest: "DRIVING"})
-      //compare
-      //set state of fastest to driving
-    }else if (this.state.drivingArrivalTime > this.state.transitArrivalTime){
+    } else if (this.state.drivingArrivalTime > this.state.transitArrivalTime){
       this.setState({ fastest: "TRANSIT" })
     } else {
       console.log("neither time is faster")
-    } console.log(this.state.fastest)
-
+    } 
+    console.log(this.state.fastest)
   }
   render() {
     let recommendation = null;
     const localFastest = this.state.fastest
     if(localFastest === "DRIVING"){
       recommendation = (
-        <div className="driving-circle-fastest"><img src="driving.png" alt="car icon"/>
+        <div className="driving-circle-fastest"><img src="driving-copy.png" alt="car icon"/>
           <div className="arrival-time">{this.state.drivingArrivalTime}</div>
         </div >)
     } else {
@@ -176,7 +174,19 @@ class App extends Component {
           <div className="arrival-time">{this.state.drivingArrivalTime}</div>
         </div >)
     }
-
+    let transitRecommendation = null;
+    const localTransitFastest = this.state.fastest
+    if (localTransitFastest === "TRANSIT") {
+      transitRecommendation = (
+        <div className="transit-circle-fastest"><img src="transportation-copy.png" alt="bus icon" />
+          <div className="arrival-time">{this.state.transitArrivalTime}</div>
+        </div >)
+    } else {
+      transitRecommendation = (
+        <div className="transit-circle"><img src="transportation.png" alt="bus icon" />
+          <div className="arrival-time">{this.state.transitArrivalTime}</div>
+        </div>)
+    }
     return (
       <div className="App">
        <AsyncGettingStartedExampleGoogleMap
@@ -207,10 +217,8 @@ class App extends Component {
         </div>
         <div className="circles-container">
           <div>{recommendation}</div>
+          <div>{transitRecommendation}</div>
 
-          <div className="transit-circle"><img src="transportation.png" alt="bus icon" />
-            <div className="arrival-time">{this.state.transitArrivalTime}</div>
-          </div>
         </div>
       </div>
     );
