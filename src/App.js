@@ -128,7 +128,6 @@ class App extends Component {
         };
         this.setState(newState)
         this.findFastestRoute();
-
       })
       // put your woah res into your state, then call this.state.woah down in render
       .catch(error => console.log("fetching routes error ", error.message))
@@ -173,6 +172,7 @@ class App extends Component {
           <div className="arrival-time">{this.state.drivingArrivalTime}</div>
         </div >)
     }
+
     let transitRecommendation = null;
     const localTransitFastest = this.state.fastest
     if (localTransitFastest === "TRANSIT") {

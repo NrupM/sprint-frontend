@@ -7,13 +7,13 @@ I decided to build this app because it solves an issue that many people face dur
 
 ## Main Page
 
-<img src="https://media.giphy.com/media/3ohhwgbxYPIxn0aanS/giphy.gif">
+<img src="https://media.giphy.com/media/3ohhwgbxYPIxn0aanS/giphy.gif" width="600px">
 
 This page features a search bar for you to enter your destination, two icons that change colors to indicate whether taking public transit or driving would get you there faster, and real time bus icons showing you where exactly your next bus is located. 
 
 ## And It's Mobile-Friendly!
 
-<img src=https://i.imgur.com/8fh53FY.jpg">
+<img src="https://i.imgur.com/8fh53FY.jpg" width:"300px">
 
 ### Installation Steps to preview locally:
 
@@ -45,20 +45,20 @@ This page features a search bar for you to enter your destination, two icons tha
 
 ### Main Page 
 
-<img src="https://i.imgur.com/AEWz0y5.jpg" width="30px">
+<img src="https://i.imgur.com/AEWz0y5.jpg" width="300px">
 
 ### User Authentication View
 
 Original wireframes were built with the idea of having user authentication set up. I am still contemplating whether this would be a valuable feature to impliment. Maybe there is another way to save user specific bookmarks without having someone login each time they visit the app?? 
 
-<img src="https://i.imgur.com/c2UpdmH.jpg" width="30px">
+<img src="https://i.imgur.com/c2UpdmH.jpg" width="300px">
 
 
 ### Bookmarks & Uber View 
 
 Future features would allow users to save frequent trips as bookmarks that they could later come back to upon re-entering the app. Another bonus feature would integrate the uber app and allow the user to select the driving icon to order their uber.
 
-<img src="https://i.imgur.com/mTLzxfa.jpg" width="30px">
+<img src="https://i.imgur.com/mTLzxfa.jpg" width="300px">
 
 ## Future Features
 
