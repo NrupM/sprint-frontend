@@ -5,7 +5,7 @@ import "./App.css";
 
 const domain = (process.env.BACKEND || 'https://whirlwind.herokuapp.com')
 
-const AsyncGettingStartedExampleGoogleMap = withScriptjs(
+const Sprintmap = withScriptjs(
   withGoogleMap(
     props => (
       <GoogleMap
@@ -14,7 +14,7 @@ const AsyncGettingStartedExampleGoogleMap = withScriptjs(
         zoom={props.zoom}
       >
       {
-        props.muniVehicles.map((vehicle, index) => { 
+        props.muniVehicles.map((vehicle, index) => {
           return (
           <Marker
           position={{ lat: vehicle.lat, lng: vehicle.lon }}
@@ -25,7 +25,10 @@ const AsyncGettingStartedExampleGoogleMap = withScriptjs(
     )
   )
 );
+
+// TODO: hide this URL into you process.ENV so noone will steal your secret key
 const googleMapURL = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCnyu2FJac70-X0EXKaoIxVw5RB4luN0uk';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -53,7 +56,7 @@ class App extends Component {
   handleKeyPress = (e) => {
     if (e.key === 'Enter') {
       this.getTransitDirections();
-    } 
+    }
   }
   getUserLocation() {
     if (navigator && navigator.geolocation) {
@@ -72,30 +75,29 @@ class App extends Component {
       });
     }
   }
+
   componentDidMount() {
     this.getUserLocation();
     this.getMuniVehicles();
   }
+
   getTransitDirections(){
     let originLat = this.state.map.center.lat;
     let originLng = this.state.map.center.lng;
     let destination = this.state.search;
     let mode = 'transit';
-    let newGoogleUrl = domain + "/maps?originLat=" + originLat + "&originLng=" + originLng + "&destination="+ destination +"&mode="+mode;
+    let newGoogleUrl = `${domain}/maps?originLat=${originLat}&originLng=${originLng}&destination=${destination}&mode=${mode}`;
     console.log(newGoogleUrl)
     //// FEETCH GOOGLE TRANSIT API INFO
     fetch(newGoogleUrl)
-    .then(res => res.json())
-    .then(res => {
-      console.log("TARGET ", res)
-      let transitArrivalTime = res.routes[0].legs[0].arrival_time.text
-      console.log("transitArrivalTime before setState", transitArrivalTime)
-      const newState = {
-        transitArrivalTime: transitArrivalTime
-      };
-      this.setState(newState)
-      this.getDrivingDirections()
-      console.log('transitArrivalTime has updated state to', this.state.transitArrivalTime)
+      .then(res => res.json())
+      .then(res => {
+        let transitArrivalTime = res.routes[0].legs[0].arrival_time.text
+        const newState = {
+          transitArrivalTime: transitArrivalTime
+        };
+        this.setState(newState)
+        this.getDrivingDirections()
     })
     // put your woah res into your state, then call this.state.woah down in render
     .catch(error => console.log("fetching routes error ", error.message))
@@ -105,7 +107,6 @@ class App extends Component {
     let originLng = this.state.map.center.lng;
     let destination = this.state.search;
     let newGoogleUrl = domain + "/maps?originLat=" + originLat + "&originLng=" + originLng + "&destination=" + destination;
-    console.log(newGoogleUrl)
     //// FEETCH GOOGLE DRIVING API INFO
     fetch(newGoogleUrl)
       .then(res => res.json())
@@ -155,7 +156,7 @@ class App extends Component {
       this.setState({ fastest: "TRANSIT" })
     } else {
       console.log("neither time is faster")
-    } 
+    }
     console.log(this.state.fastest)
   }
   render() {
@@ -163,7 +164,7 @@ class App extends Component {
     const localFastest = this.state.fastest
     if(localFastest === "DRIVING"){
       recommendation = (
-        <div className="driving-circle-fastest"><img src="driving-green.png" alt="car icon"/>
+        <div className="driving-circle fastest"><img src="driving-green.png" alt="car icon"/>
           <div className="arrival-time">{this.state.drivingArrivalTime}</div>
         </div >)
     } else {
@@ -177,7 +178,7 @@ class App extends Component {
     const localTransitFastest = this.state.fastest
     if (localTransitFastest === "TRANSIT") {
       transitRecommendation = (
-        <div className="transit-circle-fastest"><img src="transportation-green.png" alt="bus icon" />
+        <div className="transit-circle fastest"><img src="transportation-green.png" alt="bus icon" />
           <div className="arrival-time">{this.state.transitArrivalTime}</div>
         </div >)
     } else {
@@ -188,15 +189,18 @@ class App extends Component {
     }
     return (
       <div className="App">
-       <AsyncGettingStartedExampleGoogleMap
+
+       <Sprintmap
           googleMapURL={googleMapURL}
           className={"map"}
           zoom={this.state.map.zoom}
           center={this.state.map.center}
           containerElement={
+            // classname
             <div style={{ height: '100%', position: 'absolute', width: '100%'}} />
           }
           mapElement={
+            // classname
             <div style={{ height: `100%` }} />
           }
           style={{ width: "100%", height: "100%", position: "absolute" }}
@@ -205,6 +209,7 @@ class App extends Component {
             <div style={{ height: `100%` }}> loading </div>
           }
         />
+
         <div className="search-form">
           <input
             onChange={e => this.onInputChange(e)}
@@ -214,10 +219,10 @@ class App extends Component {
             value={this.state.search}
           />
         </div>
+
         <div className="circles-container">
           <div>{recommendation}</div>
           <div>{transitRecommendation}</div>
-
         </div>
       </div>
     );
