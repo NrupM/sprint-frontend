@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import withScriptjs from 'react-google-maps/lib/async/withScriptjs';
 import './App.css';
+import '.config.js';
 
 const domain = (process.env.BACKEND || 'https://whirlwind.herokuapp.com');
 const gMapsAPIKey = config.GMAPS_KEY;
