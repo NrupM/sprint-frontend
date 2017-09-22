@@ -51,7 +51,8 @@ class App extends Component {
     });
   }
   handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    e = e || window.event;
+    if (e.key === 'Enter' || e.key === 13) {
       this.getTransitDirections();
     } 
   }
