@@ -7,13 +7,16 @@ I decided to build this app because it solves an issue that many people face dur
 
 ## Main Page
 
-<img src="https://media.giphy.com/media/3ohhwgbxYPIxn0aanS/giphy.gif" width="600px">
-
+<p align="center">
+<img src="https://media.giphy.com/media/3ov9jDQ2mtYAH76srC/giphy.gif" width="600px">
+<p>
 This page features a search bar for you to enter your destination, two icons that change colors to indicate whether taking public transit or driving would get you there faster, and real time bus icons showing you where exactly your next bus is located. 
 
-## And It's Mobile-Friendly!
+## Mobile-Friendly
 
-<img src="https://i.imgur.com/8fh53FY.jpg" width:"300px">
+The app was designed for 
+
+<img src="https://i.imgur.com/8fh53FY.jpg" width="300px">
 
 ### Installation Steps to preview locally:
 
@@ -33,9 +36,9 @@ This page features a search bar for you to enter your destination, two icons tha
 6. Google Maps API
 7. RESTbus API
 8. Backend code @ https://github.com/NrupM/sprint:
-  - Node.js
-  - Express
-  - Uber API (feature started but not yet supported)
+    - Node.js
+    - Express
+    - Uber API (feature started but not yet supported)
 
 ## User Stories:
 
@@ -43,28 +46,40 @@ This page features a search bar for you to enter your destination, two icons tha
 
 ## Wireframes & Future Features
 
-### Main Page 
+<table>
+<tr>
+<tr><h3>Future Features</h3>
 
+1. A user will be able to bookmark frequent trips
+2. A user will be able to see the transit line name and direction for the real time vehicle markers
+3. A user will be able to click on the car icon and be sent to Uber app to order a car </tr>
+<h3>Main Page</h3>
 <img src="https://i.imgur.com/AEWz0y5.jpg" width="300px">
+</tr>
+<tr>
+<h3>Bookmarks</h3>
+
+Users will be able to bookmark frequent trips and be able to view thier bookmarks upon re-entering the app at a future date. 
+
+<img src="https://i.imgur.com/JanvPfc.png" width="300px"></tr>
+<tr><h3>Click to open Uber App</h3>
+
+Once a User has put in thier destination and received arrival time results, they will be able to select the driving and request an Uber ride from their current location to their destination. 
+
+<img src="https://i.imgur.com/2u4SqE1.png" width="300px">
+</tr>
+</table>
+
 
 ### User Authentication View
 
 Original wireframes were built with the idea of having user authentication set up. I am still contemplating whether this would be a valuable feature to impliment. Maybe there is another way to save user specific bookmarks without having someone login each time they visit the app?? 
 
-<img src="https://i.imgur.com/c2UpdmH.jpg" width="300px">
+<img src="https://i.imgur.com/Q0OJxCC.png" width="200px">
 
+<img src="https://i.imgur.com/r34QYJp.png" width="200px">
+<img src="https://i.imgur.com/fgeKihe.png" width="200px">
 
-### Bookmarks & Uber View 
-
-Future features would allow users to save frequent trips as bookmarks that they could later come back to upon re-entering the app. Another bonus feature would integrate the uber app and allow the user to select the driving icon to order their uber.
-
-<img src="https://i.imgur.com/mTLzxfa.jpg" width="300px">
-
-## Future Features
-
-1. A user will be able to bookmark frequent trips
-2. A user will be able to see the transit line name and direction for the real time vehicle markers
-3. A user will be able to click on the car icon and be sent to Uber app to order a car 
 
 ## Links
 
