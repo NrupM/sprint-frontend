@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import withScriptjs from 'react-google-maps/lib/async/withScriptjs';
 import './App.css';
-import './config.js';
 
 const domain = (process.env.BACKEND || 'https://whirlwind.herokuapp.com');
-const gMapsAPIKey = config.GMAPS_KEY;
 
 const AsyncGettingStartedExampleGoogleMap = withScriptjs(
   withGoogleMap(
@@ -27,7 +25,7 @@ const AsyncGettingStartedExampleGoogleMap = withScriptjs(
     )
   )
 );
-const googleMapURL = `https://maps.googleapis.com/maps/api/js?key=${gMapsAPIKey}`;
+const googleMapURL = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCnyu2FJac70-X0EXKaoIxVw5RB4luN0uk';
 class App extends Component {
   constructor(props) {
     super(props);
