@@ -3,7 +3,8 @@ import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import withScriptjs from 'react-google-maps/lib/async/withScriptjs';
 import './App.css';
 
-const domain = (process.env.BACKEND || 'https://whirlwind.herokuapp.com')
+const domain = (process.env.BACKEND || 'https://whirlwind.herokuapp.com');
+const gMapsAPIKey = config.GMAPS_KEY;
 
 const AsyncGettingStartedExampleGoogleMap = withScriptjs(
   withGoogleMap(
@@ -25,7 +26,7 @@ const AsyncGettingStartedExampleGoogleMap = withScriptjs(
     )
   )
 );
-const googleMapURL = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCnyu2FJac70-X0EXKaoIxVw5RB4luN0uk';
+const googleMapURL = `https://maps.googleapis.com/maps/api/js?key=${gMapsAPIKey}`;
 class App extends Component {
   constructor(props) {
     super(props);
@@ -82,7 +83,7 @@ class App extends Component {
     let originLng = this.state.map.center.lng;
     let destination = this.state.search;
     let mode = 'transit';
-    let newGoogleUrl = domain + '/maps?originLat=' + originLat + '&originLng=' + originLng + '&destination='+ destination +'&mode='+mode;
+    let newGoogleUrl = `${domain}/maps?originLat=${originLat}&originLng=${originLng}&destination=${destination}&mode=${mode}`;
     console.log(newGoogleUrl)
     //// FEETCH GOOGLE TRANSIT API INFO
     fetch(newGoogleUrl)
@@ -106,7 +107,7 @@ class App extends Component {
     let originLat = this.state.map.center.lat;
     let originLng = this.state.map.center.lng;
     let destination = this.state.search;
-    let newGoogleUrl = domain + '/maps?originLat=' + originLat + '&originLng=' + originLng + '&destination=' + destination;
+    let newGoogleUrl = `${domain}/maps?originLat=${originLat}&originLng=${originLng}&destination=${destination}`;
     console.log(newGoogleUrl)
     //// FEETCH GOOGLE DRIVING API INFO
     fetch(newGoogleUrl)
@@ -132,7 +133,7 @@ class App extends Component {
         this.findFastestRoute();
       })
       // put your woah res into your state, then call this.state.woah down in render
-      .catch(error => console.log('fetching routes error ', error.message))
+      .catch(error => console.log(`fetching routes error ${error.message}`))
   }
   getMuniVehicles() {
     fetch('https://whirlwind.herokuapp.com/vehicles')
