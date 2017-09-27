@@ -1,44 +1,54 @@
-# SPRINT: For Your Fastest Commute!
+# [SPRINT: For Your Fastest Commute](https://sprint-io.herokuapp.com/) (Front-end Repository)
 
 
 SPRINT is a personal navigation tool for every day commute which takes in your destination address and calculates whether driving or taking public transit would get you there faster. 
 
 I decided to build this app because it solves an issue that many people face during their daily commute. Google maps will tell you how long it will take you to get to your destination by car but does not take bus arrival time into account when determining how long a trip via public transportation will get take. SPRINT solves that plus showing you your transit vehicles actual location so you can plan better and stop worrying about whether the bus will be on time or not. 
 
+Please check out [SPRINT Server Github Repository](https://github.com/NrupM/sprint) for the back-end code.
+
 ## Main Page
 
 <p align="center">
-<img src="https://media.giphy.com/media/3ov9jDQ2mtYAH76srC/giphy.gif" width="600px">
+<img src="https://i.imgur.com/ZJvNKFj.jpg" width="600px">
 <p>
-This page features a search bar for you to enter your destination, two icons that change colors to indicate whether taking public transit or driving would get you there faster, and real time bus icons showing you where exactly your next bus is located. 
+This page features a search bar for you to enter your destination, two icons that change colors to indicate whether taking public transit or driving would get you there faster plus real time map markers showing you where exactly your next bus is located. 
 
 ## Mobile-Friendly
 
-The app was designed for 
+The app was designed for mobile accessability 
 
 <img src="https://i.imgur.com/8fh53FY.jpg" width="300px">
 
 ### Installation Steps to preview locally:
 
-1. Clone this repo locally & cd into it
+1. Clone this repository locally & cd into it:
+    ```
+    $ git clone https://github.com/NrupM/sprint-frontend.git
+    ```
 2. Run `yarn install`
+    ```
+    $ yarn install
+    ```
+
 3. Run `yarn start` to start up the react server
+    ```
+    $ yarn start
+    ```
 4. Check it out on localhost:3000!
-5. You can always check it out on [Heroku](https://sprint-io.herokuapp.com/)
 
-### Technologies:
+### Built With:
 
-1. React
-2. JavaScript
-3. CSS3
-4. HTML5
-5. Flexbox
-6. Google Maps API
-7. RESTbus API
-8. Backend code @ https://github.com/NrupM/sprint:
-    - Node.js
-    - Express
-    - Uber API (feature started but not yet supported)
+* [React](https://facebook.github.io/react/) - JavaScript library
+* [Node.js](https://nodejs.org/en/) - JavaScript runtime environment for the back-end application
+* [Express](https://expressjs.com/) - Node.<span/>js framework used
+* [CSS3 - Flexbox](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3) - Stylesheet language and layout module
+* [HTML5](https://en.wikipedia.org/wiki/HTML) - Standard markup language
+* [RESTbus API](http://restbus.info/) - RESTful JSON API for the NextBus XML feed
+* [Google Maps API](https://developers.google.com/maps/) - Web mapping service
+* [React Google Maps](hhttps://github.com/tomchentw/react-google-maps) - React.js Google Maps integration component
+* [Heroku](https://www.heroku.com/home) - Deploment platform
+* [Uber API](https://developer.uber.com/) - Access core capabilities of the Uber app (feature started but not yet supported)
 
 ## User Stories:
 
@@ -84,4 +94,4 @@ Original wireframes were built with the idea of having user authentication set u
 ## Links
 
 - [Heroku](https://sprint-io.herokuapp.com/)
-- [Backend](https://github.com/NrupM/sprint)
+- [Server Repository](https://github.com/NrupM/sprint)
