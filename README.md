@@ -86,7 +86,6 @@ Once a User has put in thier destination and received arrival time results, they
 Original wireframes were built with the idea of having user authentication set up. I am still contemplating whether this would be a valuable feature to impliment. Maybe there is another way to save user specific bookmarks without having someone login each time they visit the app?? 
 
 <img src="https://i.imgur.com/Q0OJxCC.png" width="200px">
-
 <img src="https://i.imgur.com/r34QYJp.png" width="200px">
 <img src="https://i.imgur.com/fgeKihe.png" width="200px">
 
