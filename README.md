@@ -9,20 +9,19 @@ Please check out [SPRINT Server Github Repository](https://github.com/NrupM/spri
 
 ## Main Page
 
-<p align="center">
-<img src="https://i.imgur.com/ZJvNKFj.jpg" width="600px">
-<p>
+<img src="https://i.imgur.com/ZJvNKFj.jpg" width="800px">
+
 This page features a search bar for you to enter your destination, two icons that change colors to indicate whether taking public transit or driving would get you there faster plus real time map markers showing you where exactly your next bus is located. 
 
-## Mobile-Friendly
+### Mobile-Friendly
 
 The app was designed for mobile accessability 
 
 <img src="https://i.imgur.com/8fh53FY.jpg" width="300px">
 
-### Installation Steps to preview locally:
+## Installation Steps to preview locally
 
-1. Clone this repository locally & cd into it:
+1. Clone this repository locally & cd into it
     ```
     $ git clone https://github.com/NrupM/sprint-frontend.git
     ```
@@ -37,7 +36,7 @@ The app was designed for mobile accessability
     ```
 4. Check it out on localhost:3000!
 
-### Built With:
+## Built With
 
 * [React](https://facebook.github.io/react/) - JavaScript library
 * [Node.js](https://nodejs.org/en/) - JavaScript runtime environment for the back-end application
@@ -50,7 +49,7 @@ The app was designed for mobile accessability
 * [Heroku](https://www.heroku.com/home) - Deploment platform
 * [Uber API](https://developer.uber.com/) - Access core capabilities of the Uber app (feature started but not yet supported)
 
-## User Stories:
+## User Stories
 
 1. A user can enter a destination, get arrival times for both driving and public transit options and be shown an indicator as to which travel option would be faster at that time. 
 
@@ -84,11 +83,11 @@ Once a User has put in thier destination and received arrival time results, they
 ### User Authentication View
 
 Original wireframes were built with the idea of having user authentication set up. I am still contemplating whether this would be a valuable feature to impliment. Maybe there is another way to save user specific bookmarks without having someone login each time they visit the app?? 
-
-<img src="https://i.imgur.com/Q0OJxCC.png" width="200px">
-<img src="https://i.imgur.com/r34QYJp.png" width="200px">
-<img src="https://i.imgur.com/fgeKihe.png" width="200px">
-
+<p align="center">
+    <img src="https://i.imgur.com/Q0OJxCC.png" width="200px">
+    <img src="https://i.imgur.com/r34QYJp.png" width="200px">
+    <img src="https://i.imgur.com/fgeKihe.png" width="200px">
+</p>
 
 ## Links
 
