@@ -91,7 +91,6 @@ class App extends Component {
       console.log('TARGET ', res)
       let transitArrivalTime = res.routes[0].legs[0].arrival_time.text
       console.log('transitArrivalTime before setState', transitArrivalTime)
-      let steps = res.routes[0].legs[0].steps;
       const newState = {
         transitArrivalTime: transitArrivalTime
       };
