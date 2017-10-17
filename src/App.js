@@ -93,10 +93,11 @@ class App extends Component {
       steps.forEach(step => {
         if (step.travel_mode === 'TRANSIT' && step.transit_details['line'].agencies[0].name === 'SFMTA'){
           let lineName = step.transit_details['line'].short_name
-          let departureStop = step.transit_details.departure_stop.name
+          let departureStopOriginalName = step.transit_details.departure_stop.name
           // TODO: Figure out the direction (inbound or outbound here)
           // var direction = longstart - longend 
           // if negative, then inbound, else if positive, outbound
+          var departureStop = departureStopOriginalName.replace(/[&\s\\#,+()$~%.'":*?<>{}]/g, '');
           console.log("SUCCESS: ", lineName + " @ " + departureStop)
           let busUrl = `http://restbus.info/api/agencies/sf-muni/routes/${lineName}`
           fetch(busUrl)
@@ -116,15 +117,15 @@ class App extends Component {
                   let stopIdUrl = `http://restbus.info/api/agencies/sf-muni/routes/${lineName}/stops/${stopId}/predictions`
                   console.log(stopIdUrl)
                 }
-                Irving St & 4th Ave
-                Irving St & 4th Ave
+                // Irving St & 4th Ave
+                // Irving St & 4th Ave
                 console.log("RESTBus: ", stop.title)
                 console.log("Google: " , departureStop)
-                // if(stop.title === departureStop){
-                //   let stopId = stop.title
-                //   console.log("successful stopId:", stopId)
-                // }
-                console.log("error with matching departureStop ")
+                if(stop.title === departureStop){
+                  let stopId = stop.title
+                  console.log("successful stopId:", stopId)
+                }
+                // console.log("error with matching departureStop ")
               })
           })
             // iterate through stops to find a stop title that matches line name
