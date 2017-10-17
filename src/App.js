@@ -3,6 +3,8 @@ import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 import withScriptjs from "react-google-maps/lib/async/withScriptjs";
 // import $ from "jquery";
 import "./App.css";
+//AIzaSyC - zqaWAZ3B9SiyGppsA5rWVsN4pB4qLcI
+
 
 const domain = (process.env.BACKEND || 'https://whirlwind.herokuapp.com')
 
@@ -77,12 +79,10 @@ class App extends Component {
   getDirections(){
     let originLat = this.state.map.center.lat;
     let originLng = this.state.map.center.lng;
-    // let originLat = "37.7627837";
-    // let originLng = "-122.4633105";
     let destination = this.state.search;
     let mode = 'transit';
     let newGoogleUrl = domain + "/maps?originLat=" + originLat + "&originLng=" + originLng + "&destination="+ destination +"&mode="+mode;
-    
+    console.log(newGoogleUrl)
     //// FEETCH GOOGLE API INFO
     fetch(newGoogleUrl)
     .then(res => res.json())
@@ -94,7 +94,7 @@ class App extends Component {
         if (step.travel_mode === 'TRANSIT' && step.transit_details['line'].agencies[0].name === 'SFMTA'){
           let lineName = step.transit_details['line'].short_name
           let departureStop = step.transit_details.departure_stop.name
-          // TODO: Figure out the diretion (inbound or outbound her)
+          // TODO: Figure out the direction (inbound or outbound here)
           // var direction = longstart - longend 
           // if negative, then inbound, else if positive, outbound
           console.log("SUCCESS: ", lineName + " @ " + departureStop)
@@ -116,8 +116,10 @@ class App extends Component {
                   let stopIdUrl = `http://restbus.info/api/agencies/sf-muni/routes/${lineName}/stops/${stopId}/predictions`
                   console.log(stopIdUrl)
                 }
-                // console.log("RESTBus: ", stop.title)
-                // console.log("Google: " , departureStop)
+                Irving St & 4th Ave
+                Irving St & 4th Ave
+                console.log("RESTBus: ", stop.title)
+                console.log("Google: " , departureStop)
                 // if(stop.title === departureStop){
                 //   let stopId = stop.title
                 //   console.log("successful stopId:", stopId)
@@ -152,7 +154,7 @@ class App extends Component {
   }
 
   getMuniVehicles() {
-    fetch("http://107.170.254.162/vehicles")
+    fetch("https://whirlwind.herokuapp.com/vehicles")
       .then(res => res.json())
       .then(res => {
         const newState = {
