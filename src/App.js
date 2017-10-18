@@ -111,16 +111,28 @@ class App extends Component {
                 // if google name contains 'station' in the end, only use first word
                 // if google name contains 'station', only use first word in restBus
                 // check for inbound or outbound when in stations
-                if(stop.title.split(' ')[0] === departureStop.split(' ')[0]){
+                let stopTitle = stop.title.replace(/[&\s\\#,+()$~%.'":*?<>{}]/g, '')
+                  
+                console.log("stopTitle", stopTitle)
+                if(stopTitle === departureStop){
                   console.log(stop.id);
                   let stopId = stop.id;
                   let stopIdUrl = `http://restbus.info/api/agencies/sf-muni/routes/${lineName}/stops/${stopId}/predictions`
-                  console.log(stopIdUrl)
+                  fetch(stopIdUrl)
+                    .then(res => res.json())
+                    .then(res => {
+                      let nextVehicleAtStopInMin = res[0].values[0].minutes
+                      console.log("nextVehicleAtStopInMin", nextVehicleAtStopInMin)
+                      // let nextVehicleAtStopInSec = res.values[0].seconds
+                      // let secondVehicleAtStopInMin = res.values[1].minutes
+                      // console.log(`nextVehicleAtStopInMin ${nextVehicleAtStopInMin} & nextVehicleAtStopInSec ${nextVehicleAtStopInSec} & secondVehicleAtStopInMin  ${secondVehicleAtStopInMin}`)
+                    })
+
                 }
                 // Irving St & 4th Ave
                 // Irving St & 4th Ave
-                console.log("RESTBus: ", stop.title)
-                console.log("Google: " , departureStop)
+                // console.log("RESTBus: ", stop.title)
+                // console.log("Google: " , departureStop)
                 if(stop.title === departureStop){
                   let stopId = stop.title
                   console.log("successful stopId:", stopId)
@@ -128,6 +140,7 @@ class App extends Component {
                 // console.log("error with matching departureStop ")
               })
           })
+
             // iterate through stops to find a stop title that matches line name
             // stopID = whatever you find in this object right now
             // then go to the end point for that particular stop
