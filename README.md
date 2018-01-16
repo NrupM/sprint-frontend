@@ -1,7 +1,7 @@
 # [SPRINT: For Your Fastest Commute](https://sprint-io.herokuapp.com/) (Front-end Repository)
 
 
-SPRINT is a personal navigation tool for the everyday commute. Enter your destination address and the app calculates whether driving or taking public transit would get you there faster. 
+SPRINT is a personal navigation app for the everyday commute. Enter your destination and the app calculates whether driving or taking public transit will get you there faster. 
 
 I decided to build this app because it solves an issue that many people face during their daily commute. When determining how long a trip will take via public transportation, Google Maps does not take real-time bus vehicle arrivals into account, resulting in a skewed idea of total trip duration. SPRINT solves this problem by including bus stop arrivals and showing you your transit vehicles actual location. Now you can plan better and stop worrying about whether the bus will be on time or not. 
 

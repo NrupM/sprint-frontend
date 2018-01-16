@@ -4,8 +4,9 @@ import withScriptjs from 'react-google-maps/lib/async/withScriptjs';
 import './App.css';
 
 const domain = (process.env.BACKEND || 'https://whirlwind.herokuapp.com');
+const googleMapURL = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCnyu2FJac70-X0EXKaoIxVw5RB4luN0uk';
 
-const AsyncGettingStartedExampleGoogleMap = withScriptjs(
+const AsyncGoogleMap = withScriptjs(
   withGoogleMap(
     props => (
       <GoogleMap
@@ -25,7 +26,7 @@ const AsyncGettingStartedExampleGoogleMap = withScriptjs(
     )
   )
 );
-const googleMapURL = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCnyu2FJac70-X0EXKaoIxVw5RB4luN0uk';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -77,6 +78,7 @@ class App extends Component {
     this.getUserLocation();
     this.getMuniVehicles();
   }
+
   getTransitDirections(){
     let originLat = this.state.map.center.lat;
     let originLng = this.state.map.center.lng;
@@ -133,6 +135,7 @@ class App extends Component {
       // put your woah res into your state, then call this.state.woah down in render
       .catch(error => console.log(`fetching routes error ${error.message}`))
   }
+  
   getMuniVehicles() {
     fetch('https://whirlwind.herokuapp.com/vehicles')
       .then(res => res.json())
@@ -149,6 +152,7 @@ class App extends Component {
         )
       );
   }
+  
   findFastestRoute(){
     if(this.state.drivingArrivalTime < this.state.transitArrivalTime){
        this.setState({fastest: 'DRIVING'})
@@ -164,9 +168,7 @@ class App extends Component {
     const localFastest = this.state.fastest
     if(localFastest === 'DRIVING'){
       recommendation = (
-        <div className='driving-circle-fastest'><img src='driving-green.png' alt='car icon'/>
-          <div className='arrival-time'>{this.state.drivingArrivalTime}</div>
-        </div >)
+        )
     } else {
       recommendation =(
         <div className='driving-circle'><img src='driving.png' alt='car icon' />
@@ -189,7 +191,7 @@ class App extends Component {
     }
     return (
       <div className='App'>
-       <AsyncGettingStartedExampleGoogleMap
+       <AsyncGoogleMap
           googleMapURL={googleMapURL}
           className={'map'}
           zoom={this.state.map.zoom}
@@ -216,7 +218,10 @@ class App extends Component {
           />
         </div>
         <div className='circles-container'>
-          <div>{recommendation}</div>
+          <div className=`${this.state.fastest.toLowerCase()}-circle-fastest`>
+            <img src=`${this.state.fastest.toLowerCase()}-green.png` alt='${this.state.fastest.toLowerCase()} icon' />
+            <div className='arrival-time'>{this.state.drivingArrivalTime}</div>
+          </div >
           <div>{transitRecommendation}</div>
 
         </div>
